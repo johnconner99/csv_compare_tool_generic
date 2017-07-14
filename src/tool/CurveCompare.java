@@ -8,11 +8,12 @@ import file.FileUtil;
 
 public class CurveCompare {
 	public static void main(String [] args){
-		FileUtil util = new FileUtil();
-		CurveCSV curve = new CurveCSV();
+		
+		CurveCSV curve = new CurveCSV();//this object looks useless
+		FileUtil<CurveCSV> util = new FileUtil<CurveCSV>();
 		try {
-			Map<CurveCSV, BigDecimal> curveUAT = util.readCSVFile("F:\\practice\\Book1.csv",curve);
-			Map<CurveCSV, BigDecimal> curveProd = util.readCSVFile("F:\\practice\\Book2.csv",curve);
+			Map<CurveCSV, BigDecimal> curveUAT = util.readCSVFile("F:\\practice\\book_curve_uat.csv",curve);
+			Map<CurveCSV, BigDecimal> curveProd = util.readCSVFile("F:\\practice\\book_curve_prod.csv",curve);
 
 			util.compareCSVFile(curveUAT, curveProd,curve);
 		} catch (IOException e) {

@@ -12,7 +12,7 @@ import java.util.Map;
 
 import csv.GenericCSV;
 
-public class FileUtil<T extends GenericCSV> {
+public class FileUtil<T extends GenericCSV<T>> {
 
 	//generalize
 	public Map<T, BigDecimal> readCSVFile(String path, T csv) throws IOException {
@@ -27,7 +27,7 @@ public class FileUtil<T extends GenericCSV> {
 			if (line[0].equalsIgnoreCase("curve_date")) {//not generic!!-- pass as lamda
 				line = br.readLine().split(","); // skip the header
 			}
-			T csv2 =  (T)csv.readCSVRow(line); //-- pass as lamda
+			T csv2 = csv.readCSVRow(line);
 			map.put(csv2, new BigDecimal(line[2]));
 		}
 		br.close();

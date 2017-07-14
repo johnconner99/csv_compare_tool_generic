@@ -1,13 +1,5 @@
 package csv;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CurveCSV implements GenericCSV<CurveCSV>{
 	int indexID;
@@ -24,9 +16,9 @@ public class CurveCSV implements GenericCSV<CurveCSV>{
 		curveCSV.curveDate = line[0];
 		curveCSV.expiryDate = line[1];
 		curveCSV.price = BigDecimal.valueOf(Double.parseDouble(line[2]));
-		curveCSV.contractCode = line[4];
-		curveCSV.indexName = line[5];
-		curveCSV.indexID = Integer.parseInt(line[6]);
+		curveCSV.contractCode = line[3];
+		curveCSV.indexName = line[4];
+		curveCSV.indexID = Integer.parseInt(line[5]);
 
 		return curveCSV;		
 

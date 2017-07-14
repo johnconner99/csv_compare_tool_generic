@@ -1,13 +1,5 @@
 package csv;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
 
 public class VolCSV implements GenericCSV<VolCSV>{
 	int volID;
@@ -73,28 +65,27 @@ public class VolCSV implements GenericCSV<VolCSV>{
 	}
 
 	public VolCSV readCSVRow(String[] line) {
-		VolCSV volCSV = new VolCSV();		
-		volCSV.curveDate = line[0];
-		volCSV.expiryDate = line[1];
-		volCSV.vol = BigDecimal.valueOf(Double.parseDouble(line[2]));
-		volCSV.Strike = BigDecimal.valueOf(Double.parseDouble(line[3]));
-		volCSV.contractCode = line[4];
-		volCSV.volName = line[5];
-		volCSV.volID = Integer.parseInt(line[6]);
+		VolCSV csv = new VolCSV();
+		csv.curveDate = line[0];
+		csv.expiryDate = line[1];
+		csv.vol = BigDecimal.valueOf(Double.parseDouble(line[2]));
+		csv.Strike = BigDecimal.valueOf(Double.parseDouble(line[3]));
+		csv.contractCode = line[4];
+		csv.volName = line[5];
+		csv.volID = Integer.parseInt(line[6]);
 
-		return volCSV;
+		return csv;
 
 	}
 
-	@Override
 	public String getCSVRowToWrite(VolCSV csv) {
 		return csv.curveDate + "," + 
-			csv.expiryDate + "," + 
-			csv.vol + "," +
-			csv.Strike + "," +
-			csv.contractCode + "," + 
-			csv.volName + "," + 
-			csv.volID;
+				csv.expiryDate + "," + 
+				csv.vol + "," +
+				csv.Strike + "," +
+				csv.contractCode + "," + 
+				csv.volName + "," + 
+				csv.volID;
 	}
 
 	
