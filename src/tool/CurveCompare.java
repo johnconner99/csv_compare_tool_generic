@@ -15,7 +15,8 @@ public class CurveCompare {
 			Map<CurveCSV, BigDecimal> curveUAT = util.readCSVFile("F:\\practice\\book_curve_uat.csv",curve);
 			Map<CurveCSV, BigDecimal> curveProd = util.readCSVFile("F:\\practice\\book_curve_prod.csv",curve);
 
-			util.compareCSVFile(curveUAT, curveProd,curve);
+			util.compareCSVFile(curveUAT, curveProd);
+			util.publishAllReports(curve);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

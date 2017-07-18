@@ -16,12 +16,16 @@ import csv.VolCSV;
  *
  */
 public class VolCSVTest {
+	
+	VolCSV vol;
+
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		vol = new VolCSV();
 	}
 
 	/**
@@ -29,6 +33,7 @@ public class VolCSVTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
+		VolCSV vol = null;
 	}
 
 	/**
@@ -36,7 +41,6 @@ public class VolCSVTest {
 	 */
 	@Test(expected = ArrayIndexOutOfBoundsException.class)
 	public final void test_readCSVRow_vol_object_bad_csv_column_mismatch() {
-		VolCSV vol = new VolCSV();
 		String[] line = new String[6];
 		line[0] = "\"12/24/2017 23:33:33 AM\"";
 		line[1] = "\"12/30/2017 23:33:33 AM\"";
@@ -52,7 +56,6 @@ public class VolCSVTest {
 	 */
 	@Test(expected = NumberFormatException.class)
 	public final void test_readCSVRow_vol_object_bad_csv_invalid_data_format() {
-		VolCSV vol = new VolCSV();
 		String[] line = new String[6];
 		line[0] = "\"12/24/2017 23:33:33 AM\"";
 		line[1] = "\"12/30/2017 23:33:33 AM\"";

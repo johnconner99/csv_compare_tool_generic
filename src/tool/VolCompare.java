@@ -19,7 +19,8 @@ public class VolCompare {
 			Map<VolCSV, BigDecimal> volUAT = util.readCSVFile(uatFilePath, vol);
 			Map<VolCSV, BigDecimal> volProd = util.readCSVFile(prodFilePath, vol);
 
-			util.compareCSVFile(volUAT, volProd,vol);
+			util.compareCSVFile(volUAT, volProd);
+			util.publishAllReports(vol);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			//add a proper loggging

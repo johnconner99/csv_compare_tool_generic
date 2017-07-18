@@ -87,6 +87,13 @@ public class VolCSV implements GenericCSV<VolCSV>{
 				csv.volName + "," + 
 				csv.volID;
 	}
+	
+	public boolean validateHeader(String header, String inputLine){
+		if(header.equals(inputLine)){
+			return true;
+		}
+		return false;
+	}
 
 	
 }

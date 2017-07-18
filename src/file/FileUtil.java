@@ -13,6 +13,12 @@ import java.util.Map;
 import csv.GenericCSV;
 
 public class FileUtil<T extends GenericCSV<T>> {
+	
+	public Map<T, BigDecimal> match = new HashMap<T, BigDecimal>();
+	public Map<T, BigDecimal> mismatch = new HashMap<T, BigDecimal>();
+	public Map<T, BigDecimal> extraUAT = new HashMap<T, BigDecimal>();
+	public Map<T, BigDecimal> extraProd = new HashMap<T, BigDecimal>();
+
 
 	//generalize
 	public Map<T, BigDecimal> readCSVFile(String path, T csv) throws IOException {
@@ -21,6 +27,12 @@ public class FileUtil<T extends GenericCSV<T>> {
 		Map<T, BigDecimal> map = new HashMap<T, BigDecimal>();
 		File file = new File(path);
 		BufferedReader br = new BufferedReader(new FileReader(file));
+		
+		//read first line - this is header
+		
+		//validate header
+		
+		
 		while ((oneLiner = br.readLine()) != null) {
 			line = oneLiner.split(",");
 
@@ -38,20 +50,15 @@ public class FileUtil<T extends GenericCSV<T>> {
 
 	
 	//generalize
-	public void prepareCSVReport(Map<T, BigDecimal> input,String destination, T csv) {
-		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(destination));
-			bw.write(csv.header);//pass as lamda
+	public void prepareCSVReport(Map<T, BigDecimal> input, String destination, T csv) throws IOException {
+		BufferedWriter bw = new BufferedWriter(new FileWriter(destination));
+		bw.write(csv.header);// pass as lamda
+		bw.newLine();
+		for (T csv2 : input.keySet()) {
+			bw.write(csv.getCSVRowToWrite(csv2));// pass as lamda
 			bw.newLine();
-			for (T csv2: input.keySet()) {
-				bw.write(csv.getCSVRowToWrite(csv2)	);//pass as lamda
-				bw.newLine();
-			}
-			bw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
 		}
+		bw.close();
 	}
 
 	public void analyseMismatch(Map<T, BigDecimal> input) {
@@ -67,12 +74,8 @@ public class FileUtil<T extends GenericCSV<T>> {
 	}
 
 	//generalize
-	public void compareCSVFile(Map<T, BigDecimal> uat, Map<T, BigDecimal> prod, T csv) {
-		Map<T, BigDecimal> match = new HashMap<T, BigDecimal>();
-		Map<T, BigDecimal> mismatch = new HashMap<T, BigDecimal>();
-		Map<T, BigDecimal> extraUAT = new HashMap<T, BigDecimal>();
-		Map<T, BigDecimal> extraProd = new HashMap<T, BigDecimal>();
-
+	public void compareCSVFile(Map<T, BigDecimal> uat, Map<T, BigDecimal> prod) {
+	
 		for (T key : uat.keySet()) {
 			if (prod.containsKey(key)) {//filter??
 				if (prod.get(key).equals(uat.get(key))) {
@@ -90,12 +93,14 @@ public class FileUtil<T extends GenericCSV<T>> {
 				extraProd.put(key, prod.get(key));
 			}
 		}
-
+	}
+	
+	public void publishAllReports(T csv) throws IOException{
 		prepareCSVReport(match, "F:\\practice\\book_vol_match.csv", csv);
 		prepareCSVReport(mismatch, "F:\\practice\\book_vol_mismatch.csv", csv);
 		prepareCSVReport(extraProd, "F:\\practice\\book_vol_extraProd.csv", csv);
 		prepareCSVReport(extraUAT, "F:\\practice\\book_vol_extraUAT.csv", csv);
-
+	
 	}
 
 }
