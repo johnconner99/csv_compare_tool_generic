@@ -2,13 +2,13 @@ package csv;
 import java.math.BigDecimal;
 
 public class VolCSV implements GenericCSV<VolCSV>{
-	int volID;
-	String volName;
-	String curveDate;
-	String expiryDate;
-	String contractCode;
-	BigDecimal Strike;
-	BigDecimal vol;
+	public int volID;
+	public String volName;
+	public String curveDate;
+	public String expiryDate;
+	public String contractCode;
+	public BigDecimal Strike;
+	public BigDecimal vol;
 	
 	public String header = "curve_date, expiry_date, vol, strike, contract_code, vol_name, vol_id ";
 
